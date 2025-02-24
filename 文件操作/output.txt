@@ -1,0 +1,15 @@
+config: 13595 Bytes | 0.01 MB | 0.00 GB
+customizeConfigs: 22108 Bytes | 0.02 MB | 0.00 GB
+leidian0: 45401285110 Bytes | 43298.04 MB | 42.28 GB
+leidian1: 21917940697 Bytes | 20902.58 MB | 20.41 GB
+leidian10: 1114944402 Bytes | 1063.29 MB | 1.04 GB
+leidian11: 1828418005 Bytes | 1743.72 MB | 1.70 GB
+leidian2: 10548795973 Bytes | 10060.12 MB | 9.82 GB
+leidian3: 2713300553 Bytes | 2587.61 MB | 2.53 GB
+leidian4: 2355795225 Bytes | 2246.66 MB | 2.19 GB
+leidian5: 2775168050 Bytes | 2646.61 MB | 2.58 GB
+leidian7: 1813359628 Bytes | 1729.35 MB | 1.69 GB
+leidian8: 3141655985 Bytes | 2996.12 MB | 2.93 GB
+leidian9: 2710297875 Bytes | 2584.74 MB | 2.52 GB
+operationRecords: 0 Bytes | 0 MB | 0 GB
+recommendConfigs: 4567725 Bytes | 4.36 MB | 0.00 GB
