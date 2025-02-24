@@ -47,6 +47,8 @@ thread = threading.Thread(target=check_time)
 thread.daemon = True  # 设置为守护线程，主程序退出时自动结束
 thread.start()
 
+# 主程序
+print("程序已启动，请等待，不要关闭！")
 # 保持主程序运行
 try:
     while True:
