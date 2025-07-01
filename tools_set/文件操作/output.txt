@@ -1,0 +1,30 @@
+ DOCUMENT686: 511665 Bytes | 0.49 MB | 0.00 GB
+$WINDOWS.~BT: 131680765 Bytes | 125.58 MB | 0.12 GB
+$Windows.~WS: 291178 Bytes | 0.28 MB | 0.00 GB
+.idea: 3230 Bytes | 0.00 MB | 0.00 GB
+AMD: 31431443 Bytes | 29.98 MB | 0.03 GB
+Autodesk: 23564441 Bytes | 22.47 MB | 0.02 GB
+AutodeskLicensePatcherInstaller: 4822577 Bytes | 4.60 MB | 0.00 GB
+Documents and Settings: 0 Bytes | 0 MB | 0 GB
+ESD: 0 Bytes | 0 MB | 0 GB
+inetpub: 0 Bytes | 0 MB | 0 GB
+MinGW: 171904365 Bytes | 163.94 MB | 0.16 GB
+OneDriveTemp: 0 Bytes | 0 MB | 0 GB
+opaivmplayer: 43466 Bytes | 0.04 MB | 0.00 GB
+PerfLogs: 0 Bytes | 0 MB | 0 GB
+Program Files: 29414744692 Bytes | 28052.09 MB | 27.39 GB
+Program Files (x86): 7176248658 Bytes | 6843.80 MB | 6.68 GB
+ProgramData: 11203719859 Bytes | 10684.70 MB | 10.43 GB
+ProgramFiles: 400806120 Bytes | 382.24 MB | 0.37 GB
+PTBSoftware: 59 Bytes | 0.00 MB | 0.00 GB
+Recovery: 0 Bytes | 0 MB | 0 GB
+Recycler: 0 Bytes | 0 MB | 0 GB
+SDKTemp: 0 Bytes | 0 MB | 0 GB
+SkyworthEdu: 0 Bytes | 0 MB | 0 GB
+System Volume Information: 0 Bytes | 0 MB | 0 GB
+Users: 71381896330 Bytes | 68075.08 MB | 66.48 GB
+Windows: 37309384154 Bytes | 35581.00 MB | 34.75 GB
+XboxGames: 0 Bytes | 0 MB | 0 GB
+XmpCache: 0 Bytes | 0 MB | 0 GB
+×ÀÃæ: 5061850 Bytes | 4.83 MB | 0.00 GB
+$RECYCLE.BIN: 9475218 Bytes | 9.04 MB | 0.01 GB
