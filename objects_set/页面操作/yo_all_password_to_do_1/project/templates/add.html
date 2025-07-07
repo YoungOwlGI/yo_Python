@@ -1,0 +1,36 @@
+{% extends "base.html"  %}
+ 
+{% block content %}
+<h2 class="mb-4">添加新密码记录</h2>
+ 
+<div class="card">
+    <div class="card-body">
+        <form method="POST" action="{{ url_for('add_password') }}">
+            <div class="mb-3">
+                <label for="name" class="form-label">名称</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="mb-3">
+                <label for="url" class="form-label">URL</label>
+                <input type="url" class="form-control" id="url" name="url">
+            </div>
+            <div class="mb-3">
+                <label for="username" class="form-label">用户名</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">密码</label>
+                <input type="text" class="form-control" id="password" name="password" required>
+            </div>
+            <div class="mb-3">
+                <label for="note" class="form-label">备注</label>
+                <textarea class="form-control" id="note" name="note" rows="3"></textarea>
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="submit" class="btn btn-primary">保存</button>
+                <a href="{{ url_for('index') }}" class="btn btn-secondary">取消</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

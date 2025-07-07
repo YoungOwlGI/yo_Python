@@ -1,0 +1,25 @@
+<!-- templates/edit.html  -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>编辑记录</title>
+    <style>
+        /* 同index.html 样式 */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>编辑记录</h1>
+        <form method="POST" action="/edit/{{ data.id  }}">
+            <input type="text" name="cn_name" value="{{ data.cn_name  }}" required>
+            <input type="text" name="name" value="{{ data.name  }}">
+            <input type="url" name="url" value="{{ data.url  }}">
+            <input type="text" name="username" value="{{ data.username  }}">
+            <input type="password" name="password" value="{{ data.password  }}">
+            <textarea name="note">{{ data.note  }}</textarea>
+            <button type="submit">保存</button>
+            <a href="/">返回列表</a>
+        </form>
+    </div>
+</body>
+</html>

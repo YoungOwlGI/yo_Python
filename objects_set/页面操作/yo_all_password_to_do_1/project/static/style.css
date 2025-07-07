@@ -1,0 +1,59 @@
+/* 科技感字体 */
+@font-face {
+  font-family: 'Cyber';
+  src: url('cyberfont.woff2')  format('woff2');
+}
+
+/* 动态渐变背景 */
+body {
+  background: radial-gradient(
+    ellipse at top left,
+    #0F2027 0%,
+    #203A43 50%,
+    #2C5364 100%
+  );
+  font-family: 'Cyber', sans-serif;
+}
+
+/* 玻璃拟态卡片 */
+.glass-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 0 12px rgba(81, 203, 238, 0.2);
+}
+
+/* 输入框交互效果 */
+.glow-input:focus {
+  box-shadow:
+    0 0 8px rgba(42, 168, 248, 0.8),
+    inset 0 0 6px rgba(42, 168, 248, 0.4);
+  animation: pulse 2s infinite;
+}
+
+/* 赛博按钮 */
+.cyber-button {
+  position: relative;
+  overflow: hidden;
+  border: 2px solid #00FF9D;
+  background: transparent;
+}
+.cyber-button::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to bottom right,
+    transparent 45%,
+    rgba(0,255,157,0.3) 50%,
+    transparent 55%
+  );
+  transform: rotate(30deg);
+  animation: scan 3s linear infinite;
+}

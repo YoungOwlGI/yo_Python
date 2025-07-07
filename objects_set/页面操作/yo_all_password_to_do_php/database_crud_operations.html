@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>密码管理系统 | YoungOwl</title>
+    <link rel="stylesheet" href="https://s2.ssl.qhres2.com/static/56662140ef7d5d03.css">
+    <link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+            color: var(--secondary);
+        }
+
+        .card {
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        }
+
+        .card-header {
+            padding: 1rem 1.5rem;
+            background-color: var(--primary);
+            color: white;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        th {
+            font-weight: 600;
+            color: var(--primary);
+            background-color: rgba(0,0,0,0.02);
+        }
+
+        tr:hover {
+            background-color: rgba(0,0,0,0.02);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+        }
+
+        .btn i {
+            margin-right: 0.5rem;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #27ae60;
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+
+        .btn-sm {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--primary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 0.25rem;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 2px rgba(52,152,219,0.2);
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal.show  {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 0.5rem;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.show  .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .modal-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.5rem;
+        }
+
+        .close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: rgba(0,0,0,0.5);
+        }
+
+        .alert {
+            padding: 0.75rem 1rem;
+            border-radius: 0.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .alert-danger {
+            background-color: rgba(231,76,60,0.1);
+            color: var(--danger);
+            border-left: 3px solid var(--danger);
+        }
+
+        .alert-success {
+            background-color: rgba(46,204,113,0.1);
+            color: var(--success);
+            border-left: 3px solid var(--success);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: rgba(0,0,0,0.5);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            color: rgba(0,0,0,0.2);
+            margin-bottom: 1rem;
+        }
+
+        .password-field {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: rgba(0,0,0,0.5);
+            cursor: pointer;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        .status-active {
+            background-color: var(--success);
+        }
+
+        .status-inactive {
+            background-color: var(--danger);
+        }
+
+        /* 连接状态指示器 */
+        .connection-status {
+            display: flex;
+            align-items: center;
+            font-size: 0.875rem;
+            color: rgba(0,0,0,0.6);
+        }
+
+        .connection-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        .connection-connected {
+            background-color: var(--success);
+        }
+
+        .connection-disconnected {
+            background-color: var(--danger);
+        }
+
+        .connection-connecting {
+            background-color: var(--warning);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="logo">
+            <i class="fas fa-lock"></i>
+            <span>YoungOwl 密码管理系统</span>
+        </div>
+        <div class="connection-status">
+            <div id="dbStatusDot" class="connection-dot connection-connecting"></div>
+            <span id="dbStatusText">正在连接数据库...</span>
+        </div>
+    </div>
+
+    <div id="errorAlert" class="alert alert-danger" style="display: none;"></div>
+    <div id="successAlert" class="alert alert-success" style="display: none;"></div>
+
+    <div class="card">
+        <div class="card-header">
+            <span>密码列表</span>
+            <button id="addPasswordBtn" class="btn btn-primary btn-sm">
+                <i class="fas fa-plus"></i> 添加密码
+            </button>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="passwordTable">
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>中文名称</th>
+                        <th>页面名称</th>
+                        <th>页面路径</th>
+                        <th>用户名</th>
+                        <th>密码</th>
+                        <th>备注</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="passwordTableBody">
+                    <tr>
+                        <td colspan="8">
+                            <div class="empty-state">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                <p>正在加载数据...</p>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 添加密码模态框 -->
+<div id="addPasswordModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">添加新密码</h5>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="addPasswordForm">
+                <div class="form-group">
+                    <label for="addCnName">中文名称</label>
+                    <input type="text" class="form-control" id="addCnName" required>
+                </div>
+                <div class="form-group">
+                    <label for="addName">页面名称</label>
+                    <input type="text" class="form-control" id="addName" required>
+                </div>
+                <div class="form-group">
+                    <label for="addUrl">页面路径</label>
+                    <input type="text" class="form-control" id="addUrl" required>
+                </div>
+                <div class="form-group">
+                    <label for="addUsername">用户名</label>
+                    <input type="text" class="form-control" id="addUsername" required>
+                </div>
+                <div class="form-group">
+                    <label for="addPassword">密码</label>
+                    <div class="password-field">
+                        <input type="password" class="form-control" id="addPassword" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword('addPassword')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="addNote">备注</label>
+                    <textarea class="form-control" id="addNote" rows="3"></textarea>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn" data-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-primary" id="submitAddPassword">保存</button>
+        </div>
+    </div>
+</div>
+
+<!-- 编辑密码模态框 -->
+<div id="editPasswordModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">编辑密码</h5>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="editPasswordForm">
+                <input type="hidden" id="editId">
+                <div class="form-group">
+                    <label for="editCnName">中文名称</label>
+                    <input type="text" class="form-control" id="editCnName" required>
+                </div>
+                <div class="form-group">
+                    <label for="editName">页面名称</label>
+                    <input type="text" class="form-control" id="editName" required>
+                </div>
+                <div class="form-group">
+                    <label for="editUrl">页面路径</label>
+                    <input type="text" class="form-control" id="editUrl" required>
+                </div>
+                <div class="form-group">
+                    <label for="editUsername">用户名</label>
+                    <input type="text" class="form-control" id="editUsername" required>
+                </div>
+                <div class="form-group">
+                    <label for="editPassword">密码</label>
+                    <div class="password-field">
+                        <input type="password" class="form-control" id="editPassword" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword('editPassword')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="editNote">备注</label>
+                    <textarea class="form-control" id="editNote" rows="3"></textarea>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn" data-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-primary" id="submitEditPassword">保存</button>
+        </div>
+    </div>
+</div>
+
+<!-- 删除确认模态框 -->
+<div id="deleteConfirmModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">确认删除</h5>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p>您确定要删除这条密码记录吗？此操作无法撤销。</p>
+            <input type="hidden" id="deleteId">
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn" data-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-danger" id="confirmDelete">删除</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 数据库连接状态
+    let dbConnected = false;
+
+    // 初始化页面
+    document.addEventListener('DOMContentLoaded',  function() {
+        // 测试数据库连接
+        testDatabaseConnection();
+
+        // 加载密码数据
+        loadPasswords();
+
+        // 绑定事件
+        bindEvents();
+    });
+
+    // 测试数据库连接
+    function testDatabaseConnection() {
+        const dbStatusDot = document.getElementById('dbStatusDot');
+        const dbStatusText = document.getElementById('dbStatusText');
+
+        fetch('test_connection.php')
+            .then(response => response.json())
+            .then(data => {
+                if (data.success)  {
+                    dbConnected = true;
+                    dbStatusDot.className  = 'connection-dot connection-connected';
+                    dbStatusText.textContent  = '数据库已连接';
+                } else {
+                    dbStatusDot.className  = 'connection-dot connection-disconnected';
+                    dbStatusText.textContent  = '数据库连接失败: ' + data.message;
+                    showError('数据库连接失败: ' + data.message);
+                }
+            })
+            .catch(error => {
+                dbStatusDot.className  = 'connection-dot connection-disconnected';
+                dbStatusText.textContent  = '数据库连接错误';
+                showError('数据库连接错误: ' + error.message);
+            });
+    }
+
+    // 加载密码数据
+    function loadPasswords() {
+        fetch('get_passwords.php')
+            .then(response => {
+                if (!response.ok)  {
+                    throw new Error('网络响应不正常');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const tableBody = document.getElementById('passwordTableBody');
+
+                if (data.length  === 0) {
+                    tableBody.innerHTML  = `
+                            <tr>
+                                <td colspan="8">
+                                    <div class="empty-state">
+                                        <i class="fas fa-database"></i>
+                                        <p>没有找到密码记录</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        `;
+                    return;
+                }
+
+                let html = '';
+                data.forEach(password  => {
+                    html += `
+                            <tr>
+                                <td>${password.id}</td>
+                                <td>${password.cn_name}</td>
+                                <td>${password.name}</td>
+                                <td>${password.url}</td>
+                                <td>${password.username}</td>
+                                <td>
+                                    <div class="password-field">
+                                        <input type="password" value="${password.password}"  class="form-control password-display" readonly>
+                                        <button type="button" class="password-toggle" onclick="togglePasswordDisplay(this)">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                                <td>${password.note  || '-'}</td>
+                                <td>
+                                    <button class="btn btn-sm" onclick="editPassword(${password.id})">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-danger" onclick="confirmDelete(${password.id})">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        `;
+                });
+
+                tableBody.innerHTML  = html;
+            })
+            .catch(error => {
+                showError('加载密码数据失败: ' + error.message);
+                document.getElementById('passwordTableBody').innerHTML  = `
+                        <tr>
+                            <td colspan="8">
+                                <div class="empty-state">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    <p>加载数据失败</p>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+            });
+    }
+
+    // 绑定事件
+    function bindEvents() {
+        // 添加密码按钮
+        document.getElementById('addPasswordBtn').addEventListener('click',  function() {
+            document.getElementById('addPasswordForm').reset();
+            document.getElementById('addPasswordModal').classList.add('show');
+        });
+
+        // 提交添加密码
+        document.getElementById('submitAddPassword').addEventListener('click',  function() {
+            const form = document.getElementById('addPasswordForm');
+            if (!form.checkValidity())  {
+                form.reportValidity();
+                return;
+            }
+
+            const passwordData = {
+                cn_name: document.getElementById('addCnName').value,
+                name: document.getElementById('addName').value,
+                url: document.getElementById('addUrl').value,
+                username: document.getElementById('addUsername').value,
+                password: document.getElementById('addPassword').value,
+                note: document.getElementById('addNote').value
+            };
+
+            fetch('add_password.php',  {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(passwordData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success)  {
+                        document.getElementById('addPasswordModal').classList.remove('show');
+                        showSuccess('密码添加成功');
+                        loadPasswords();
+                    } else {
+                        showError('添加密码失败: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    showError('添加密码时出错: ' + error.message);
+                });
+        });
+
+        // 提交编辑密码
+        document.getElementById('submitEditPassword').addEventListener('click',  function() {
+            const form = document.getElementById('editPasswordForm');
+            if (!form.checkValidity())  {
+                form.reportValidity();
+                return;
+            }
+
+            const passwordData = {
+                id: document.getElementById('editId').value,
+                cn_name: document.getElementById('editCnName').value,
+                name: document.getElementById('editName').value,
+                url: document.getElementById('editUrl').value,
+                username: document.getElementById('editUsername').value,
+                password: document.getElementById('editPassword').value,
+                note: document.getElementById('editNote').value
+            };
+
+            fetch('update_password.php',  {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(passwordData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success)  {
+                        document.getElementById('editPasswordModal').classList.remove('show');
+                        showSuccess('密码更新成功');
+                        loadPasswords();
+                    } else {
+                        showError('更新密码失败: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    showError('更新密码时出错: ' + error.message);
+                });
+        });
+
+        // 确认删除
+        document.getElementById('confirmDelete').addEventListener('click',  function() {
+            const id = document.getElementById('deleteId').value;
+
+            fetch('delete_password.php',  {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({  id: id })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success)  {
+                        document.getElementById('deleteConfirmModal').classList.remove('show');
+                        showSuccess('密码删除成功');
+                        loadPasswords();
+                    } else {
+                        showError('删除密码失败: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    showError('删除密码时出错: ' + error.message);
+                });
+        });
+
+        // 关闭模态框
+        const closeButtons = document.querySelectorAll('.close,  [data-dismiss="modal"]');
+        closeButtons.forEach(button  => {
+            button.addEventListener('click',  function() {
+                const modal = this.closest('.modal');
+                if (modal) {
+                    modal.classList.remove('show');
+                }
+            });
+        });
+
+        // 点击模态框外部关闭
+        const modals = document.querySelectorAll('.modal');
+        modals.forEach(modal  => {
+            modal.addEventListener('click',  function(e) {
+                if (e.target  === this) {
+                    this.classList.remove('show');
+                }
+            });
+        });
+    }
+
+    // 编辑密码
+    function editPassword(id) {
+        fetch('get_password.php?id='  + id)
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    document.getElementById('editId').value  = data.id;
+                    document.getElementById('editCnName').value  = data.cn_name;
+                    document.getElementById('editName').value  = data.name;
+                    document.getElementById('editUrl').value  = data.url;
+                    document.getElementById('editUsername').value  = data.username;
+                    document.getElementById('editPassword').value  = data.password;
+                    document.getElementById('editNote').value  = data.note  || '';
+                    document.getElementById('editPasswordModal').classList.add('show');
+                } else {
+                    showError('获取密码信息失败');
+                }
+            })
+            .catch(error => {
+                showError('获取密码信息时出错: ' + error.message);
+            });
+    }
+
+    // 确认删除
+    function confirmDelete(id) {
+        document.getElementById('deleteId').value  = id;
+        document.getElementById('deleteConfirmModal').classList.add('show');
+    }
+
+    // 切换密码显示
+    function togglePassword(id) {
+        const input = document.getElementById(id);
+        if (input.type  === 'password') {
+            input.type  = 'text';
+            input.nextElementSibling.innerHTML  = '<i class="fas fa-eye-slash"></i>';
+        } else {
+            input.type  = 'password';
+            input.nextElementSibling.innerHTML  = '<i class="fas fa-eye"></i>';
+        }
+    }
+
+    // 切换表格中密码显示
+    function togglePasswordDisplay(button) {
+        const input = button.previousElementSibling;
+        if (input.type  === 'password') {
+            input.type  = 'text';
+            button.innerHTML  = '<i class="fas fa-eye-slash"></i>';
+        } else {
+            input.type  = 'password';
+            button.innerHTML  = '<i class="fas fa-eye"></i>';
+        }
+    }
+
+    // 显示错误消息
+    function showError(message) {
+        const errorAlert = document.getElementById('errorAlert');
+        errorAlert.textContent  = message;
+        errorAlert.style.display  = 'block';
+
+        setTimeout(() => {
+            errorAlert.style.display  = 'none';
+        }, 5000);
+    }
+
+    // 显示成功消息
+    function showSuccess(message) {
+        const successAlert = document.getElementById('successAlert');
+        successAlert.textContent  = message;
+        successAlert.style.display  = 'block';
+
+        setTimeout(() => {
+            successAlert.style.display  = 'none';
+        }, 3000);
+    }
+</script>
+</body>
+</html>

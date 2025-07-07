@@ -1,0 +1,52 @@
+<!-- templates/index.html  -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>密码管理器</title>
+    <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 8px; }
+        th { background-color: #f2f2f2; }
+        .container { max-width: 800px; margin: 20px auto; }
+        form { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>密码管理</h1>
+        <form method="POST" action="/add">
+            <input type="text" name="cn_name" placeholder="中文名称" required>
+            <input type="text" name="name" placeholder="页面名称">
+            <input type="url" name="url" placeholder="页面路径">
+            <input type="text" name="username" placeholder="用户名">
+            <input type="password" name="password" placeholder="密码">
+            <textarea name="note" placeholder="备注"></textarea>
+            <button type="submit">添加</button>
+        </form>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>中文名称</th>
+                    <th>页面名称</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data %}
+                <tr>
+                    <td>{{ row.id  }}</td>
+                    <td>{{ row.cn_name  }}</td>
+                    <td>{{ row.name  }}</td>
+                    <td>
+                        <a href="/edit/{{ row.id  }}">编辑</a>
+                        <a href="/delete/{{ row.id  }}" onclick="return confirm('确定删除？')">删除</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
