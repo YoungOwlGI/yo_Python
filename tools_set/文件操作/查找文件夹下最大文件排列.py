@@ -1,17 +1,12 @@
 # 有误
-
-
 import os
-
 
 def find_large_files(path, size_limit):
     """
     查找指定路径下大于指定大小的文件，并返回文件路径和大小的字典。
-
     参数:
         path (str): 搜索的路径。
         size_limit (int): 文件大小限制，单位为字节。
-
     返回:
         dict: 包含文件路径和大小的字典，键为文件路径，值为文件大小。
     """
